@@ -1,0 +1,25 @@
+@model IEnumerable<search_product_mvc.Models.Product>
+<h1>Product List</h1>
+
+<a asp-action="Create">create product</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var product in Model)
+    {
+      <tr>
+        <td>@product.Title</td>
+        <td>@product.Description</td>
+        <td>@product.Price</td>
+      </tr>
+    }
+
+  </tbody>
+</table>

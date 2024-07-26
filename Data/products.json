@@ -1,0 +1,122 @@
+[
+  {
+    "Id": "d2a4e8c1-8c69-4f1f-965f-0c2c4d42d7b9",
+    "Title": "iPhone 14 Pro",
+    "Description": "Latest Apple iPhone with A16 Bionic chip and ProMotion display.",
+    "Price": 99900
+  },
+  {
+    "Id": "f6a1e9b3-8e23-4e5b-bd72-4c9bfb8e6c0f",
+    "Title": "Samsung Galaxy S22",
+    "Description": "High-end Samsung phone with a stunning display and excellent camera.",
+    "Price": 89900
+  },
+  {
+    "Id": "c5f2a1d7-9e2b-4e8f-a1f9-6b3b9c8e7a4e",
+    "Title": "MacBook Pro 16",
+    "Description": "Apple's powerful laptop with M1 Max chip and Liquid Retina XDR display.",
+    "Price": 249900
+  },
+  {
+    "Id": "a7d5b1e2-8d34-4c8b-a2b8-7f2d6e9c1d2e",
+    "Title": "Dell XPS 13",
+    "Description": "Ultra-thin and light laptop with a stunning InfinityEdge display.",
+    "Price": 109900
+  },
+  {
+    "Id": "e3f8b7d9-7a5b-4e2a-b2d9-3f2c5e7b8a1c",
+    "Title": "Wooden Dining Table",
+    "Description": "Elegant wooden dining table with a rich finish, seats six comfortably.",
+    "Price": 59900
+  },
+  {
+    "Id": "b6a2f8d4-9b2c-4e1f-a9b2-8e3f6d7c2a4d",
+    "Title": "Glass Coffee Table",
+    "Description": "Modern glass coffee table with stainless steel legs.",
+    "Price": 19900
+  },
+  {
+    "Id": "g8b9c2e4-5d7e-4a8f-a1c3-0b2d6f7e8c9f",
+    "Title": "Google Pixel 6",
+    "Description": "Google's latest phone with Tensor chip and advanced camera system.",
+    "Price": 79900
+  },
+  {
+    "Id": "h3a4b9c1-6d5e-4f8c-a2d3-1f2e7c8a9b0e",
+    "Title": "OnePlus 9 Pro",
+    "Description": "High-performance phone with Hasselblad camera and fast charging.",
+    "Price": 72900
+  },
+  {
+    "Id": "i2d5e7c3-4b8a-4c9d-a3f2-2g3h7d8b0a1c",
+    "Title": "HP Spectre x360",
+    "Description": "Convertible laptop with 4K touchscreen and powerful performance.",
+    "Price": 129900
+  },
+  {
+    "Id": "j6f9e8d2-3a7b-4c1d-a5e3-4h5i6d7b8a2e",
+    "Title": "Lenovo ThinkPad X1 Carbon",
+    "Description": "Lightweight and durable laptop with excellent keyboard and battery life.",
+    "Price": 139900
+  },
+  {
+    "Id": "k1a2e3c4-8f5b-4d9e-a7f1-5j6k7d8b9a3d",
+    "Title": "Nokia G50",
+    "Description": "Affordable 5G phone with a large display and long battery life.",
+    "Price": 29900
+  },
+  {
+    "Id": "l2b3d4e5-7f8a-4c9b-a8f2-6k7l8d9b0c4f",
+    "Title": "Asus ROG Zephyrus G14",
+    "Description": "Compact gaming laptop with powerful performance and high refresh rate display.",
+    "Price": 149900
+  },
+  {
+    "Id": "m3c4e5d6-8a9b-4d0e-a9f3-7l8m9d0b1d5g",
+    "Title": "Microsoft Surface Laptop 4",
+    "Description": "Sleek laptop with excellent display and long battery life.",
+    "Price": 119900
+  },
+  {
+    "Id": "n4d5e6f7-9b0a-4c1e-b0f4-8m9n0d1b2e6h",
+    "Title": "Sony Xperia 1 III",
+    "Description": "Premium phone with 4K display and advanced camera features.",
+    "Price": 109900
+  },
+  {
+    "Id": "o5e6f7g8-0a1b-4d2e-c0f5-9n0o1d2b3f7i",
+    "Title": "Huawei MateBook X Pro",
+    "Description": "High-end laptop with a stunning display and great performance.",
+    "Price": 139900
+  },
+  {
+    "Id": "p6f7g8h9-1b2a-4c3e-d1f6-0o1p2d3b4g8j",
+    "Title": "Motorola Edge 20",
+    "Description": "Stylish phone with a high-refresh-rate display and good camera.",
+    "Price": 59900
+  },
+  {
+    "Id": "q7g8h9i0-2a3b-4d4e-e2f7-1p2q3d4b5h9k",
+    "Title": "Acer Predator Helios 300",
+    "Description": "Powerful gaming laptop with high-refresh-rate display and RGB keyboard.",
+    "Price": 119900
+  },
+  {
+    "Id": "r8h9i0j1-3b4a-4d5e-f3f8-2q3r4d5b6i0l",
+    "Title": "Ikea Linnmon Table",
+    "Description": "Simple and modern table suitable for work and study.",
+    "Price": 49900
+  },
+  {
+    "Id": "s9i0j1k2-4a5b-4d6e-g4f9-3r4s5d6b7j1m",
+    "Title": "Mahogany Office Desk",
+    "Description": "Elegant office desk made from high-quality mahogany wood.",
+    "Price": 79900
+  },
+  {
+    "Id": "t0j1k2l3-5b6a-4d7e-h5f0-4s5t6d7b8k2n",
+    "Title": "Gaming Desk with LED Lights",
+    "Description": "Sturdy gaming desk with built-in LED lights and cable management.",
+    "Price": 99900
+  }
+]
