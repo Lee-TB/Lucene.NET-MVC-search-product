@@ -1,12 +1,10 @@
-using search_product_mvc.Models;
-
 namespace search_product_mvc.Services;
 
-public interface ILuceneService
+public interface ILuceneService<TEntity>
 {
-    public void Add(Product product);
-    public void AddRange(IEnumerable<Product> products);
+    public void Add(TEntity entity);
+    public void AddRange(IEnumerable<TEntity> entities);
     public void Commit();
     public void Clear();
-    public IEnumerable<Product> Search(string query, int maxHits = 10);
+    public IEnumerable<TEntity> Search(string query, int maxHits = 10);
 }

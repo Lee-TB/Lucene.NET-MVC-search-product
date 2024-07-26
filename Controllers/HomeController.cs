@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using search_product_mvc.Models;
-using search_product_mvc.Services;
 
 namespace search_product_mvc.Controllers;
 
@@ -9,7 +8,7 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger, ILuceneService luceneService)
+    public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
     }

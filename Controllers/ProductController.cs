@@ -10,9 +10,9 @@ namespace search_product_mvc.Controllers;
 public class ProductController : Controller
 {
     private readonly AppDbContext _context;
-    private readonly ILuceneService _luceneService;
+    private readonly ILuceneService<Product> _luceneService;
 
-    public ProductController(AppDbContext context, ILuceneService luceneService)
+    public ProductController(AppDbContext context, ILuceneService<Product> luceneService)
     {
         _context = context;
         _luceneService = luceneService;
@@ -23,10 +23,8 @@ public class ProductController : Controller
         var products = await _context.Products.ToListAsync();
         if (!string.IsNullOrEmpty(search))
         {
-            System.Console.WriteLine(search);
             products = _luceneService.Search(search, maxHits: 10).ToList();
         }
-        System.Console.WriteLine(products.Count);
         return View(products);
     }
 
@@ -65,6 +63,13 @@ public class ProductController : Controller
         _luceneService.AddRange(products);
         _luceneService.Commit();
         return "Index rebuilt successfully!";
+    }
+
+    public string ClearIndex()
+    {
+        _luceneService.Clear();
+        _luceneService.Commit();
+        return "Index cleared successfully!";
     }
 
     public IActionResult Edit()

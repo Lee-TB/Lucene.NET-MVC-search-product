@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
         var connectionString = builder.Configuration.GetConnectionString("AppDbContext");
         options.UseSqlServer(connectionString);
     });
-    builder.Services.AddSingleton<ILuceneService, LuceneService>();
+    builder.Services.AddSingleton(typeof(ILuceneService<>), typeof(LuceneService<>));
 }
 
 var app = builder.Build();
