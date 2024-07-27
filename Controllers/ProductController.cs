@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using search_product_mvc.Data;
 using search_product_mvc.Models;
+using search_product_mvc.Repositories;
 using search_product_mvc.Services;
 
 namespace search_product_mvc.Controllers;
@@ -9,18 +8,18 @@ namespace search_product_mvc.Controllers;
 
 public class ProductController : Controller
 {
-    private readonly AppDbContext _context;
+    private readonly IRepository<Product> _productRepository;
     private readonly ILuceneService<Product> _luceneService;
 
-    public ProductController(AppDbContext context, ILuceneService<Product> luceneService)
+    public ProductController(IRepository<Product> productRepo, ILuceneService<Product> luceneService)
     {
-        _context = context;
+        _productRepository = productRepo;
         _luceneService = luceneService;
     }
 
     public async Task<IActionResult> Index(string? search)
     {
-        var products = await _context.Products.ToListAsync();
+        var products = await _productRepository.GetAllAsync();
         if (!string.IsNullOrEmpty(search))
         {
             products = _luceneService.Search(search, maxHits: 10).ToList();
@@ -35,30 +34,77 @@ public class ProductController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(Product product)
+    public async Task<IActionResult> Create(Product product)
     {
         if (ModelState.IsValid)
         {
-            _context.Products.Add(product);
-            _context.SaveChanges();
+            product.Id = Guid.NewGuid();
+            _productRepository.Create(product);
+            await _productRepository.SaveAsync();
+            _luceneService.Add(product);
+            _luceneService.Commit();
             return RedirectToAction("Index");
         }
         return View(product);
     }
 
-    public string BuildIndex()
+    [HttpGet]
+    public async Task<IActionResult> Edit(Guid id)
+    {
+        var product = await _productRepository.GetByIdAsync(id);
+        return View(product);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(Guid id, Product product)
+    {
+        if (id != product.Id)
+        {
+            return BadRequest();
+        }
+
+        if (ModelState.IsValid)
+        {
+            _productRepository.Update(product);
+            await _productRepository.SaveAsync();
+            _luceneService.Update(product);
+            _luceneService.Commit();
+            return RedirectToAction("Index");
+        }
+        return View(product);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        System.Console.WriteLine("Delete");
+        var product = await _productRepository.GetByIdAsync(id);
+        if (product == null)
+        {
+            return NotFound();
+        }
+        _productRepository.Delete(product);
+        await _productRepository.SaveAsync();
+        _luceneService.Delete(product);
+        _luceneService.Commit();
+        return RedirectToAction("Index");
+    }
+
+
+    public async Task<string> BuildIndex()
     {
 
-        var products = _context.Products.ToList();
+        var products = await _productRepository.GetAllAsync();
         _luceneService.AddRange(products);
         _luceneService.Commit();
 
         return "Index built successfully!";
     }
 
-    public string RebuildIndex()
+    public async Task<string> RebuildIndex()
     {
-        var products = _context.Products.ToList();
+        var products = await _productRepository.GetAllAsync();
         _luceneService.Clear();
         _luceneService.AddRange(products);
         _luceneService.Commit();

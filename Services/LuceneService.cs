@@ -14,12 +14,10 @@ public class LuceneService<TEntity> : ILuceneService<TEntity> where TEntity : cl
     private readonly IndexWriter _writer;
     private readonly Analyzer _analyzer;
     private readonly MultiFieldQueryParser _multiFieldQueryParser;
-    public LuceneService()
+    public LuceneService(LuceneWriter writer)
     {
-        var directory = FSDirectory.Open("Lucene_Index");
-        _analyzer = new StandardAnalyzer(LuceneVersion.LUCENE_48);
-        var indexConfig = new IndexWriterConfig(LuceneVersion.LUCENE_48, _analyzer);
-        _writer = new IndexWriter(directory, indexConfig);
+        _analyzer = writer.GetAnalyzer();
+        _writer = writer.GetWriter();
 
         var fields = new List<string>();
         Type entityType = typeof(TEntity);
@@ -35,19 +33,7 @@ public class LuceneService<TEntity> : ILuceneService<TEntity> where TEntity : cl
 
     public void Add(TEntity entity)
     {
-        var doc = new Document();
-        doc.Add(new StringField("EntityType", typeof(TEntity).Name, Field.Store.YES));
-        foreach (var p in entity.GetType().GetProperties())
-        {
-            if (p.PropertyType == typeof(string))
-            {
-                doc.Add(new TextField(p.Name, p.GetValue(entity)?.ToString() ?? "", Field.Store.YES));
-            }
-            else
-            {
-                doc.Add(new StringField(p.Name, p.GetValue(entity)?.ToString() ?? "", Field.Store.YES));
-            }
-        }
+        var doc = GetDocument(entity);
         _writer.AddDocument(doc);
     }
 
@@ -57,6 +43,25 @@ public class LuceneService<TEntity> : ILuceneService<TEntity> where TEntity : cl
         {
             Add(entity);
         }
+    }
+
+    public void Update(TEntity entity)
+    {
+        var term = new Term("Id", entity.GetType().GetProperty("Id")?.GetValue(entity)?.ToString() ?? "");
+        var doc = GetDocument(entity);
+        _writer.UpdateDocument(term, doc);
+    }
+
+    public void Delete(TEntity entity)
+    {
+        var term = new Term("Id", entity.GetType().GetProperty("Id")?.GetValue(entity)?.ToString() ?? "");
+        _writer.DeleteDocuments(term);
+    }
+
+    public void Delete(int id)
+    {
+        var term = new Term("Id", id.ToString());
+        _writer.DeleteDocuments(term);
     }
 
     public void Clear()
@@ -107,5 +112,23 @@ public class LuceneService<TEntity> : ILuceneService<TEntity> where TEntity : cl
             results.Add(entity);
         }
         return results;
+    }
+
+    private Document GetDocument(TEntity entity)
+    {
+        var doc = new Document();
+        doc.Add(new StringField("EntityType", typeof(TEntity).Name, Field.Store.YES));
+        foreach (var p in entity.GetType().GetProperties())
+        {
+            if (p.PropertyType == typeof(string))
+            {
+                doc.Add(new TextField(p.Name, p.GetValue(entity)?.ToString() ?? "", Field.Store.YES));
+            }
+            else
+            {
+                doc.Add(new StringField(p.Name, p.GetValue(entity)?.ToString() ?? "", Field.Store.YES));
+            }
+        }
+        return doc;
     }
 }

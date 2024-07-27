@@ -9,6 +9,7 @@
       <th>Title</th>
       <th>Description</th>
       <th>Price</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -18,8 +19,32 @@
         <td>@product.Title</td>
         <td>@product.Description</td>
         <td>@product.Price</td>
+        <td>
+          <a asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+          <a class="btn btn-danger btn-sm" onclick="confirmDelete(this)">Delete</a>
+          <form asp-action="Delete">
+            <input type="hidden" name="id" value="@product.Id" />
+          </form>
+        </td>
       </tr>
     }
 
   </tbody>
 </table>
+
+@section Scripts {
+  <script type="text/javascript">
+    function confirmDelete(element)
+    {
+      if (confirm("Are you sure you want to delete this item?"))
+      {
+        // Find the form element next to the clicked link
+        var form = element.nextElementSibling;
+        if (form && form.tagName === "FORM")
+        {
+          form.submit();
+        }
+      }
+    }
+  </script>
+}

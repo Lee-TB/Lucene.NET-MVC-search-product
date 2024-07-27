@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using search_product_mvc.Data;
+using search_product_mvc.Repositories;
 using search_product_mvc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
         var connectionString = builder.Configuration.GetConnectionString("AppDbContext");
         options.UseSqlServer(connectionString);
     });
-    builder.Services.AddSingleton(typeof(ILuceneService<>), typeof(LuceneService<>));
+    builder.Services.AddSingleton<LuceneWriter>();
+    builder.Services.AddScoped(typeof(ILuceneService<>), typeof(LuceneService<>));
+    builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 }
 
 var app = builder.Build();
